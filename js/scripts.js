@@ -1,6 +1,8 @@
 const battleEvents = document.getElementById('battle-events');
 const sonicStatus = document.getElementById('sonic-status');
 const motobugStatus = document.getElementById('motobug-status');
+const victoryMessage = document.getElementById('victory-message');
+const defeatMessage = document.getElementById('defeat-message');
 let newButton = new Array;
 
 class Move {
@@ -28,12 +30,30 @@ let sonic = new Character("Sonic", 100, [spinAttack, kick]);
 let motobug = new Character("Motobug", 80, [poke]);
 
 function attack(chosenMove, target) {
-    console.log(chosenMove);
-    target.currentHp -= chosenMove.power;
+    if (target.currentHp - chosenMove.power <= 0) {
+        target.currentHp = 0;
+        victoryMessage.style.display = 'block';
+    } else {
+        target.currentHp -= chosenMove.power;
+        counterAttack(target);
+    }
     let attackRecord = document.createElement('p');
     attackRecord.textContent = target.name + ' lost ' + chosenMove.power + " HP!";
     battleEvents.appendChild(attackRecord);
     updateStatus();
+}
+
+function counterAttack(enemy) {
+    let responseMove = enemy.moves[0];
+    if (sonic.currentHp - responseMove.power <= 0) {
+        sonic.currentHp = 0;
+        defeatMessage.style.display = 'block';
+    } else {
+        sonic.currentHp -= responseMove.power;
+    }
+    let attackRecord = document.createElement('p');
+    attackRecord.textContent = sonic.name + ' lost ' + responseMove.power + " HP!";
+    battleEvents.appendChild(attackRecord);
 }
 
 function createMoveButtons(chosenCharacter) {
