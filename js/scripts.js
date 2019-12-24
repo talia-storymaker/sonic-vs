@@ -30,14 +30,27 @@ function attack(chosenMove, target) {
     battleEvents.textContent += target.name + ' lost ' + chosenMove.power + " HP!";
 }
 
-function createMoveButtons(chosenCharacter, enemy) {
+function createMoveButtons(chosenCharacter) {
     for (let i = 0; i < chosenCharacter.moves.length; i++) {
         currentMove = chosenCharacter.moves[i];
         newButton[i] = document.createElement('button');
+        newButton[i].className = "move-button";
+        newButton[i].value = currentMove.name;
         newButton[i].textContent = currentMove.name + " - Power: " + currentMove.power;
         document.querySelector('body').appendChild(newButton[i]);
-        newButton[i].addEventListener("click", function() {attack(currentMove, enemy)}, false);
     }
 }
 
-createMoveButtons(sonic, motobug);
+document.addEventListener('click', function (event) {
+	if (event.target.matches('.move-button')) {
+        if (event.target.value == 'Spin Attack') {
+            attack(spinAttack, motobug)
+        }
+        if (event.target.value == 'Kick') {
+            attack(kick, motobug)
+        }
+	}
+}, false);
+
+
+createMoveButtons(sonic);
