@@ -1,4 +1,6 @@
 const battleEvents = document.getElementById('battle-events');
+const sonicStatus = document.getElementById('sonic-status');
+const motobugStatus = document.getElementById('motobug-status');
 let newButton = new Array;
 
 class Move {
@@ -13,6 +15,7 @@ class Character {
     constructor(name, hp, moves) {
         this.name = name;
         this.hp = hp;
+        this.currentHp = hp;
         this.moves = moves;
     }
 }
@@ -26,10 +29,11 @@ let motobug = new Character("Motobug", 80, [poke]);
 
 function attack(chosenMove, target) {
     console.log(chosenMove);
-    target.hp -= chosenMove.power;
+    target.currentHp -= chosenMove.power;
     let attackRecord = document.createElement('p');
     attackRecord.textContent = target.name + ' lost ' + chosenMove.power + " HP!";
     battleEvents.appendChild(attackRecord);
+    updateStatus();
 }
 
 function createMoveButtons(chosenCharacter) {
@@ -41,6 +45,11 @@ function createMoveButtons(chosenCharacter) {
         newButton[i].textContent = currentMove.name + " - Power: " + currentMove.power;
         document.querySelector('main').appendChild(newButton[i]);
     }
+}
+
+function updateStatus() {
+    sonicStatus.textContent = "HP: " + sonic.currentHp + "/" + sonic.hp;
+    motobugStatus.textContent = "HP: " + motobug.currentHp + "/" + motobug.hp;
 }
 
 document.addEventListener('click', function (event) {
@@ -56,3 +65,4 @@ document.addEventListener('click', function (event) {
 
 
 createMoveButtons(sonic);
+updateStatus();

@@ -27,3 +27,9 @@ main {
     max-width: 200px;
     align-self: end;
 }
+
+.status {
+    width: 100%;
+    flex-basis: 100%;
+    align-self: end;
+}
