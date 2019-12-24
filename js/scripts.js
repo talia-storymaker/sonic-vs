@@ -27,7 +27,9 @@ let motobug = new Character("Motobug", 80, [poke]);
 function attack(chosenMove, target) {
     console.log(chosenMove);
     target.hp -= chosenMove.power;
-    battleEvents.textContent += target.name + ' lost ' + chosenMove.power + " HP!";
+    let attackRecord = document.createElement('p');
+    attackRecord.textContent = target.name + ' lost ' + chosenMove.power + " HP!";
+    battleEvents.appendChild(attackRecord);
 }
 
 function createMoveButtons(chosenCharacter) {
