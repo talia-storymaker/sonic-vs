@@ -1,3 +1,29 @@
 body {
     font-family: 'Segoe UI', Helvetica, sans-serif;
 }
+
+main {
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.combatants-container {
+    display: flex;
+}
+
+.combatant {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+}
+
+.combatant h2 {
+    width: 100%;
+    flex-basis: 100%;
+}
+
+.combatant img {
+    max-width: 200px;
+    align-self: end;
+}

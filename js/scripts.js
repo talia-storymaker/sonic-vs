@@ -39,7 +39,7 @@ function createMoveButtons(chosenCharacter) {
         newButton[i].className = "move-button";
         newButton[i].value = currentMove.name;
         newButton[i].textContent = currentMove.name + " - Power: " + currentMove.power;
-        document.querySelector('body').appendChild(newButton[i]);
+        document.querySelector('main').appendChild(newButton[i]);
     }
 }
 
