@@ -25,8 +25,9 @@ class Character {
 const spinAttack = new Move("Spin Attack", 50, 1);
 const kick = new Move("Kick", 70, .8);
 const poke = new Move("Poke", 60, 1);
+const idle = new Move("Idle", 0, 1);
 
-let sonic = new Character("Sonic", 100, [spinAttack, kick]);
+let sonic = new Character("Sonic", 100, [spinAttack, kick, idle]);
 let motobug = new Character("Motobug", 80, [poke]);
 
 function attack(chosenMove, target) {
@@ -38,7 +39,7 @@ function attack(chosenMove, target) {
         counterAttack(target);
     }
     let attackRecord = document.createElement('p');
-    attackRecord.textContent = target.name + ' lost ' + chosenMove.power + " HP!";
+    attackRecord.textContent = sonic.name + ' uses ' + chosenMove.name + ". " + target.name + ' lost ' + chosenMove.power + " HP!";
     battleEvents.appendChild(attackRecord);
     updateStatus();
 }
@@ -52,7 +53,7 @@ function counterAttack(enemy) {
         sonic.currentHp -= responseMove.power;
     }
     let attackRecord = document.createElement('p');
-    attackRecord.textContent = sonic.name + ' lost ' + responseMove.power + " HP!";
+    attackRecord.textContent = enemy.name + ' uses ' + responseMove.name + '. ' + sonic.name + ' lost ' + responseMove.power + " HP!";
     battleEvents.appendChild(attackRecord);
 }
 
@@ -79,6 +80,9 @@ document.addEventListener('click', function (event) {
         }
         if (event.target.value == 'Kick') {
             attack(kick, motobug)
+        }
+        if (event.target.value == 'Idle') {
+            attack(idle, motobug)
         }
 	}
 }, false);
