@@ -32,8 +32,7 @@ let motobug = new Character("Motobug", 80, [poke]);
 
 function attack(chosenMove, target) {
     if (target.currentHp - chosenMove.power <= 0) {
-        target.currentHp = 0;
-        victoryMessage.style.display = 'block';
+        
     } else {
         target.currentHp -= chosenMove.power;
         counterAttack(target);
@@ -45,16 +44,28 @@ function attack(chosenMove, target) {
 }
 
 function counterAttack(enemy) {
+    let initialHp = sonic.currentHp;
     let responseMove = enemy.moves[0];
-    if (sonic.currentHp - responseMove.power <= 0) {
-        sonic.currentHp = 0;
-        defeatMessage.style.display = 'block';
-    } else {
-        sonic.currentHp -= responseMove.power;
-    }
+    sonic.currentHp -= responseMove.power;
     let attackRecord = document.createElement('p');
     attackRecord.textContent = enemy.name + ' uses ' + responseMove.name + '. ' + sonic.name + ' lost ' + responseMove.power + " HP!";
     battleEvents.appendChild(attackRecord);
+    if (initialHp - responseMove.power <= 0) {
+        showResults(false);
+    }
+}
+
+function showResults(victory) {
+    if (victory === true) {
+        target.currentHp = 0;
+        battleEvents.appendChild(victoryMessage);
+        victoryMessage.style.display = 'block';
+    }
+    if (victory === false) {
+        sonic.currentHp = 0;
+        battleEvents.appendChild(defeatMessage);
+        defeatMessage.style.display = 'block';
+    }
 }
 
 function createMoveButtons(chosenCharacter) {
