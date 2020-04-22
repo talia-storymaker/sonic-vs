@@ -45,6 +45,7 @@ function attack(chosenMove, target) {
     if (target.currentHp - chosenMove.power <= 0) {
         target.currentHp = 0;
         victoryMessage.style.display = 'block';
+        endGame();
     } else {
         target.currentHp -= chosenMove.power;
         counterAttack(target);
@@ -60,6 +61,7 @@ function counterAttack(enemy) {
     if (sonic.currentHp - responseMove.power <= 0) {
         sonic.currentHp = 0;
         defeatMessage.style.display = 'block';
+        endGame();
     } else {
         sonic.currentHp -= responseMove.power;
     }
@@ -76,6 +78,13 @@ function createMoveButtons(chosenCharacter) {
         newButton[i].value = i;
         newButton[i].textContent = currentMove.name + " - Power: " + currentMove.power;
         document.querySelector('main').appendChild(newButton[i]);
+    }
+}
+
+function endGame() {
+    moveButtons = document.getElementsByClassName('move-button');
+    for (i = 0; i < moveButtons.length; i++) {
+        moveButtons[i].style.display = 'none';
     }
 }
 
