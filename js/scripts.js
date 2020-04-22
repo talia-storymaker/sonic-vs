@@ -94,8 +94,10 @@ function updateStatus() {
 }
 
 document.addEventListener('click', function (event) {
-    let attackToUse = sonic.moves[event.target.value];
-    attack(attackToUse, motobug);
+    if (event.target.className.includes('move-button')) {
+        let attackToUse = sonic.moves[event.target.value];
+        attack(attackToUse, motobug);
+    }
 }, false);
 
 
