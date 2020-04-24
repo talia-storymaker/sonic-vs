@@ -93,7 +93,7 @@ function createMoveButtons(chosenCharacter) {
         newButton[i] = document.createElement('button');
         newButton[i].className = "move-button";
         newButton[i].value = i;
-        newButton[i].textContent = currentMove.name + " - Power: " + currentMove.power;
+        newButton[i].innerHTML = currentMove.name + "<br />Power: " + currentMove.power + "<br />Energy Cost: " + currentMove.epCost;
         document.querySelector('main').appendChild(newButton[i]);
     }
 }
