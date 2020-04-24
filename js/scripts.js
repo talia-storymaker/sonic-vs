@@ -21,6 +21,7 @@ class Character {
         this.hp = hp;
         this.ep = ep;
         this.currentHp = hp;
+        this.currentEp = ep;
         this.moves = moves;
     }
 }
@@ -52,6 +53,13 @@ function attack(chosenMove, target) {
         target.currentHp -= chosenMove.power;
         counterAttack(target);
     }
+    if (sonic.currentEp - chosenMove.epCost <= 0) {
+        sonic.currentEp = 0;
+        defeatMessage.style.display = 'block';
+        endGame();
+    } else {
+        sonic.currentEp -= chosenMove.epCost;
+    }
     let attackRecord = document.createElement('p');
     attackRecord.textContent = sonic.name + ' uses ' + chosenMove.name + ". " + target.name + ' lost ' + chosenMove.power + " HP!";
     battleEvents.appendChild(attackRecord);
@@ -66,6 +74,13 @@ function counterAttack(enemy) {
         endGame();
     } else {
         sonic.currentHp -= responseMove.power;
+    }
+    if (enemy.currentEp - responseMove.epCost <= 0) {
+        enemy.currentEp = 0;
+        victoryMessage.style.display = 'block';
+        endGame();
+    } else {
+        enemy.currentEp -= responseMove.epCost;
     }
     let attackRecord = document.createElement('p');
     attackRecord.textContent = enemy.name + ' uses ' + responseMove.name + '. ' + sonic.name + ' lost ' + responseMove.power + " HP!";
@@ -91,8 +106,10 @@ function endGame() {
 }
 
 function updateStatus() {
-    sonicStatus.textContent = "HP: " + sonic.currentHp + "/" + sonic.hp;
-    motobugStatus.textContent = "HP: " + motobug.currentHp + "/" + motobug.hp;
+    sonicStatus.innerHTML = "HP: " + sonic.currentHp + "/" + sonic.hp;
+    motobugStatus.innerHTML = "HP: " + motobug.currentHp + "/" + motobug.hp;
+    sonicStatus.innerHTML += "<br />EP: " + sonic.currentEp + "/" + sonic.ep;
+    motobugStatus.innerHTML += "<br />EP: " + motobug.currentEp + "/" + motobug.ep;
 }
 
 document.addEventListener('click', function (event) {
