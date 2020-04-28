@@ -34,7 +34,7 @@ class TurnHeader {
 }
 
 const sonicMoves = new Array();
-sonicMoves[0] = new Move("Spin Dash", 70, 10, 0);
+sonicMoves[0] = new Move("Spin Dash", 70, 10, 0.8);
 sonicMoves[1] = new Move("Spin Attack", 50, 5, 1);
 sonicMoves[2] = new Move("Idle", 0, 0, 1);
 const poke = new Move("Poke", 60, 5, 1);
@@ -42,47 +42,48 @@ const poke = new Move("Poke", 60, 5, 1);
 let sonic = new Character("Sonic", 100, 100, sonicMoves);
 let motobug = new Character("Motobug", 80, 80, [poke]);
 
-function attack(chosenMove, target) {
-    turnCounter++;
-    let moveHitSuccessfully = false;
-    let damageToOpponent;
+function determineIfHit(chosenMove) {
+    let moveHitSuccessfully;
     let accuracyRng;
-    battleEvents.appendChild(new TurnHeader(turnCounter).element);
     if (chosenMove.accuracy < 1) {
         accuracyRng = Math.random();
         if (accuracyRng <= chosenMove.accuracy) {
             moveHitSuccessfully = true;
-            console.log(moveHitSuccessfully);
         } else {
             moveHitSuccessfully = false;
-            console.log(moveHitSuccessfully);
         }
     } else {
         moveHitSuccessfully = true;
     }
-    if (moveHitSuccessfully = false) {
-        damageToOpponent = 0;
-        console.log(damageToOpponent);
-    } else {
-        damageToOpponent = chosenMove.power;
-    }
-    if (target.currentHp - damageToOpponent <= 0) {
-        target.currentHp = 0;
-        victoryMessage.style.display = 'block';
-        endGame();
-    } else {
-        target.currentHp -= damageToOpponent;
+    return moveHitSuccessfully;
+}
+
+function attack(chosenMove, target) {
+    turnCounter++;
+    let attackRecord = document.createElement('p');
+    battleEvents.appendChild(new TurnHeader(turnCounter).element);
+    let accuracyCheck = determineIfHit(chosenMove);
+    if (accuracyCheck === true) {
+        if (target.currentHp - chosenMove.power <= 0) {
+            target.currentHp = 0;
+            victoryMessage.style.display = 'block';
+            endGame();
+        } else {
+            target.currentHp -= chosenMove.power;
+            counterAttack(target);
+        }
+        if (sonic.currentEp - chosenMove.epCost <= 0) {
+            sonic.currentEp = 0;
+            defeatMessage.style.display = 'block';
+            endGame();
+        } else {
+            sonic.currentEp -= chosenMove.epCost;
+        }
+        attackRecord.textContent = sonic.name + ' uses ' + chosenMove.name + ". " + target.name + ' lost ' + chosenMove.power + " HP!";
+    } else if (accuracyCheck === false) {
+        attackRecord.textContent = sonic.name + ' uses ' + chosenMove.name + ", but it missed!";
         counterAttack(target);
     }
-    if (sonic.currentEp - chosenMove.epCost <= 0) {
-        sonic.currentEp = 0;
-        defeatMessage.style.display = 'block';
-        endGame();
-    } else {
-        sonic.currentEp -= chosenMove.epCost;
-    }
-    let attackRecord = document.createElement('p');
-    attackRecord.textContent = sonic.name + ' uses ' + chosenMove.name + ". " + target.name + ' lost ' + chosenMove.power + " HP!";
     battleEvents.appendChild(attackRecord);
     updateStatus();
 }
