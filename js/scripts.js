@@ -34,7 +34,7 @@ class TurnHeader {
 }
 
 const sonicMoves = new Array();
-sonicMoves[0] = new Move("Spin Dash", 70, 10, .8);
+sonicMoves[0] = new Move("Spin Dash", 70, 10, 0);
 sonicMoves[1] = new Move("Spin Attack", 50, 5, 1);
 sonicMoves[2] = new Move("Idle", 0, 0, 1);
 const poke = new Move("Poke", 60, 5, 1);
@@ -44,13 +44,34 @@ let motobug = new Character("Motobug", 80, 80, [poke]);
 
 function attack(chosenMove, target) {
     turnCounter++;
+    let moveHitSuccessfully = false;
+    let damageToOpponent;
+    let accuracyRng;
     battleEvents.appendChild(new TurnHeader(turnCounter).element);
-    if (target.currentHp - chosenMove.power <= 0) {
+    if (chosenMove.accuracy < 1) {
+        accuracyRng = Math.random();
+        if (accuracyRng <= chosenMove.accuracy) {
+            moveHitSuccessfully = true;
+            console.log(moveHitSuccessfully);
+        } else {
+            moveHitSuccessfully = false;
+            console.log(moveHitSuccessfully);
+        }
+    } else {
+        moveHitSuccessfully = true;
+    }
+    if (moveHitSuccessfully = false) {
+        damageToOpponent = 0;
+        console.log(damageToOpponent);
+    } else {
+        damageToOpponent = chosenMove.power;
+    }
+    if (target.currentHp - damageToOpponent <= 0) {
         target.currentHp = 0;
         victoryMessage.style.display = 'block';
         endGame();
     } else {
-        target.currentHp -= chosenMove.power;
+        target.currentHp -= damageToOpponent;
         counterAttack(target);
     }
     if (sonic.currentEp - chosenMove.epCost <= 0) {
@@ -93,7 +114,7 @@ function createMoveButtons(chosenCharacter) {
         newButton[i] = document.createElement('button');
         newButton[i].className = "move-button";
         newButton[i].value = i;
-        newButton[i].innerHTML = currentMove.name + "<br />Power: " + currentMove.power + "<br />Energy Cost: " + currentMove.epCost;
+        newButton[i].innerHTML = currentMove.name + "<br />Power: " + currentMove.power + "<br />Energy Cost: " + currentMove.epCost + "<br />Accuracy: " + (currentMove.accuracy * 100 + '%');
         document.querySelector('main').appendChild(newButton[i]);
     }
 }
