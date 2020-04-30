@@ -115,7 +115,7 @@ function createMoveButtons(chosenCharacter) {
         newButton[i] = document.createElement('button');
         newButton[i].className = "move-button";
         newButton[i].value = i;
-        newButton[i].innerHTML = currentMove.name + "<br />Power: " + currentMove.power + "<br />Energy Cost: " + currentMove.epCost + "<br />Accuracy: " + (currentMove.accuracy * 100 + '%');
+        newButton[i].innerHTML = '<h2>' + currentMove.name + "</h2><b>Power:</b> " + currentMove.power + "<br /><b>Energy Cost:</b> " + currentMove.epCost + "<br /><b>Accuracy:</b> " + (currentMove.accuracy * 100 + '%');
         document.querySelector('main').appendChild(newButton[i]);
     }
 }
@@ -135,12 +135,16 @@ function updateStatus() {
 }
 
 document.addEventListener('click', function (event) {
-    if (event.target.className.includes('move-button')) {
-        let attackToUse = sonic.moves[event.target.value];
+    let attackToUse;
+    if (event.target.className.includes('move-button') || event.target.parentNode.className.includes('move-button')) {
+        if (event.target.className.includes('move-button')) {
+            attackToUse = sonic.moves[event.target.value];
+        } if (event.target.parentNode.className.includes('move-button')) {
+            attackToUse = sonic.moves[event.target.parentNode.value];
+        }
         attack(attackToUse, motobug);
     }
-}, false);
-
+}, true);
 
 createMoveButtons(sonic);
 updateStatus();

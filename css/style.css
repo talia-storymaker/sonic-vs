@@ -1,3 +1,5 @@
+/* basic layout and styles */
+
 body {
     font-family: 'Segoe UI', Helvetica, sans-serif;
 }
@@ -36,4 +38,32 @@ main {
 
 .victory-message, .defeat-message {
     display: none;
+}
+
+/* buttons */
+
+.move-button {
+    background: linear-gradient(to bottom, #005afa, #0007a4);
+    color: #fff;
+    border-radius: 7px;
+    border: 1px #0017c3 solid;
+    font-family: 'Segoe UI', Helvetica, sans-serif;
+    padding: 5px;
+    margin: 3px;
+    line-height: 1.4;
+    display: inline-block;
+}
+
+.move-button:hover, .move-button:focus {
+    box-shadow: 0 0 10px 3px #005afa;
+}
+
+.move-button:active {
+    background: #0017c3;
+}
+
+.move-button h2 {
+    margin: 2px;
+    margin-bottom: 5px;
+    font-size: 1.25em;
 }
