@@ -37,10 +37,11 @@ const sonicMoves = new Array();
 sonicMoves[0] = new Move("Spin Dash", 70, 10, 0.8);
 sonicMoves[1] = new Move("Spin Attack", 50, 5, 1);
 sonicMoves[2] = new Move("Idle", 0, 0, 1);
-const poke = new Move("Poke", 60, 5, 1);
+const motobugMoves = new Array();
+motobugMoves[0] = new Move("Poke", 60, 5, 1);
 
 let sonic = new Character("Sonic", 100, 100, sonicMoves);
-let motobug = new Character("Motobug", 80, 80, [poke]);
+let motobug = new Character("Motobug", 80, 80, motobugMoves);
 
 function determineIfHit(chosenMove) {
     let moveHitSuccessfully;
