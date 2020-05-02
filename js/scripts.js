@@ -38,7 +38,9 @@ sonicMoves[0] = new Move("Spin Dash", 70, 10, 0.8);
 sonicMoves[1] = new Move("Spin Attack", 50, 5, 1);
 sonicMoves[2] = new Move("Idle", 0, 0, 1);
 const motobugMoves = new Array();
-motobugMoves[0] = new Move("Poke", 60, 5, 1);
+motobugMoves[0] = new Move("Slash", 60, 5, 1);
+motobugMoves[1] = new Move("Poke", 40, 2, 1)
+motobugMoves[2] = new Move("Power Slash", 70, 20, 0.8);
 
 let sonic = new Character("Sonic", 100, 100, sonicMoves);
 let motobug = new Character("Motobug", 80, 80, motobugMoves);
@@ -93,7 +95,9 @@ function attack(chosenMove, target) {
 }
 
 function counterAttack(enemy) {
-    let responseMove = enemy.moves[0];
+    let moveChoice = Math.floor(Math.random() * enemy.moves.length - 1) + 1;
+    console.log(moveChoice);
+    let responseMove = enemy.moves[moveChoice];
     if (sonic.currentHp - responseMove.power <= 0) {
         sonic.currentHp = 0;
         defeatMessage.style.display = 'block';
