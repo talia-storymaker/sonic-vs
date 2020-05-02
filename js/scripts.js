@@ -61,30 +61,33 @@ function determineIfHit(chosenMove) {
 function attack(chosenMove, target) {
     turnCounter++;
     let attackRecord = document.createElement('p');
+    attackRecord.textContent = sonic.name + ' uses ' + chosenMove.name + ". " + target.name + ' lost ' + chosenMove.power + " HP!";
     battleEvents.appendChild(new TurnHeader(turnCounter).element);
     let accuracyCheck = determineIfHit(chosenMove);
     if (accuracyCheck === true) {
         if (target.currentHp - chosenMove.power <= 0) {
             target.currentHp = 0;
+            battleEvents.appendChild(attackRecord);
             victoryMessage.style.display = 'block';
             endGame();
         } else {
             target.currentHp -= chosenMove.power;
+            battleEvents.appendChild(attackRecord);
             counterAttack(target);
         }
         if (sonic.currentEp - chosenMove.epCost <= 0) {
             sonic.currentEp = 0;
+            battleEvents.appendChild(attackRecord);
             defeatMessage.style.display = 'block';
             endGame();
         } else {
             sonic.currentEp -= chosenMove.epCost;
         }
-        attackRecord.textContent = sonic.name + ' uses ' + chosenMove.name + ". " + target.name + ' lost ' + chosenMove.power + " HP!";
     } else if (accuracyCheck === false) {
         attackRecord.textContent = sonic.name + ' uses ' + chosenMove.name + ", but it missed!";
+        battleEvents.appendChild(attackRecord);
         counterAttack(target);
     }
-    battleEvents.appendChild(attackRecord);
     updateStatus();
 }
 
