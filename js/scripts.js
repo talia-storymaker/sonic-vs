@@ -34,9 +34,9 @@ class TurnHeader {
 }
 
 const sonicMoves = new Array();
-sonicMoves[0] = new Move("Spin Dash", 70, 10, 0.8);
+sonicMoves[0] = new Move("Spin Dash", 65, 10, 0.8);
 sonicMoves[1] = new Move("Spin Attack", 40, 5, 1);
-sonicMoves[2] = new Move("Idle", 0, 0, 1);
+sonicMoves[2] = new Move("Spin Slam", 80, 15, 0.5);
 const motobugMoves = new Array();
 motobugMoves[0] = new Move("Slash", 50, 5, 1);
 motobugMoves[1] = new Move("Poke", 40, 2, 1)
