@@ -10,14 +10,13 @@ main {
 }
 
 .combatants-container {
-    display: flex;
+    text-align: center;
 }
 
 .combatant {
-    display: flex;
-    flex-wrap: wrap;
+    display: inline-block;
     text-align: center;
-    justify-content: center;
+    max-width: 40%;
 }
 
 .combatant h2 {
@@ -26,8 +25,7 @@ main {
 }
 
 .combatant img {
-    max-width: 200px;
-    align-self: end;
+    max-width: 100%;
 }
 
 .status {
@@ -38,6 +36,23 @@ main {
 
 .victory-message, .defeat-message {
     display: none;
+}
+
+@media screen and (min-width: 1024px) {
+    .combatants-container {
+        display: flex;
+    }
+
+    .combatant {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .combatant img {
+        max-width: 200px;
+        align-self: end;
+    }
 }
 
 /* buttons */
