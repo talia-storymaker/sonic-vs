@@ -35,15 +35,15 @@ class TurnHeader {
 
 const sonicMoves = new Array();
 sonicMoves[0] = new Move("Spin Dash", 70, 10, 0.8);
-sonicMoves[1] = new Move("Spin Attack", 50, 5, 1);
+sonicMoves[1] = new Move("Spin Attack", 40, 5, 1);
 sonicMoves[2] = new Move("Idle", 0, 0, 1);
 const motobugMoves = new Array();
-motobugMoves[0] = new Move("Slash", 60, 5, 1);
+motobugMoves[0] = new Move("Slash", 50, 5, 1);
 motobugMoves[1] = new Move("Poke", 40, 2, 1)
 motobugMoves[2] = new Move("Power Slash", 70, 20, 0.8);
 
-let sonic = new Character("Sonic", 100, 100, sonicMoves);
-let motobug = new Character("Motobug", 80, 80, motobugMoves);
+let sonic = new Character("Sonic", 110, 100, sonicMoves);
+let motobug = new Character("Motobug", 85, 80, motobugMoves);
 
 function determineIfHit(chosenMove) {
     let moveHitSuccessfully;
